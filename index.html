@@ -145,7 +145,18 @@
   <div class="sec-title">4. Gerar e salvar</div>
   <div class="card">
     <div class="actions">
-      <button class="btn btn-gold" onclick="gerarRomaneio()">📄 Gerar e imprimir</button>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <label style="font-size:10px;font-weight:700;color:#8492A6;text-transform:uppercase;letter-spacing:.6px;">Natureza da Operação</label>
+          <select id="sel-natureza" style="border:1.5px solid #D1D9E4;border-radius:6px;padding:7px 10px;font-size:12px;font-family:'Plus Jakarta Sans',Arial,sans-serif;font-weight:600;color:#1A2235;background:#fff;outline:none;min-width:260px;">
+            <option value="VENDA PROD. ESTABELECIMENTO">VENDA PROD. ESTABELECIMENTO</option>
+            <option value="ASSISTÊNCIA TÉCNICA">ASSISTÊNCIA TÉCNICA</option>
+            <option value="DEVOLUÇÃO">DEVOLUÇÃO</option>
+            <option value="DEMONSTRAÇÃO">DEMONSTRAÇÃO</option>
+          </select>
+        </div>
+        <button class="btn btn-gold" onclick="gerarRomaneio()" style="align-self:flex-end;">📄 Gerar e imprimir</button>
+      </div>
       <button class="btn btn-green" onclick="salvarBase()">💾 Salvar na Base</button>
       <button class="btn btn-outline" onclick="limpar()">✕ Limpar tudo</button>
     </div>
@@ -255,6 +266,7 @@ function gerarRomaneio(){
   const end=gv("f-endereco"), cep=gv("f-cep");
   const fone=gv("f-fone"), cidade=gv("f-cidade"), uf=gv("f-uf")||"SP";
   const total=gv("f-total");
+  const natureza=document.getElementById("sel-natureza")?.value||"VENDA PROD. ESTABELECIMENTO";
 
   const rows=document.querySelectorAll("#itens-body tr");
   let itens="";let cnt=0;
@@ -357,7 +369,7 @@ body{font-family:Arial,sans-serif;font-size:11pt;color:#000;background:#fff;}
 <!-- NATUREZA + PROTOCOLO -->
 <table class="bloco" style="border-top:none;">
   <tr>
-    <td style="width:50%;"><span class="lbl">NATUREZA DA OPERAÇÃO</span><span class="val">VENDA PROD. ESTABELECIMENTO</span></td>
+    <td style="width:50%;"><span class="lbl">NATUREZA DA OPERAÇÃO</span><span class="val">${natureza}</span></td>
     <td style="width:50%;"><span class="lbl">PROTOCOLO DE AUTORIZAÇÃO DE USO</span><span class="val">${pedido} &nbsp; -</span></td>
   </tr>
   <tr>
